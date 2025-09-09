@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
  // character creation
 public class CharacterCreation{
 	static Scanner scanner = new Scanner(System.in);
@@ -30,15 +30,24 @@ public class CharacterCreation{
 			
         }
 		
-		System.out.println("Welcome "+ player.name + " the " + player.job);
+		System.out.println("Welcome "+ player.name + " the " + player.job);  // Show Player stats
+		
         System.out.println("You are a " + player.job + "!");
         System.out.println("Attack: " + player.attack);
         System.out.println("Intelligence: " + player.intelligence);
         System.out.println("Dexterity: " + player.dexterity);
+		List<Player> party = new ArrayList<>(); // add player
+			party.add(player);
 		
+		Enemy slime = new Enemy("Slime", 3, 2, 3, 0, 25, 0);
 		
-        // Show Player stats
+		List<Enemy> monsters = new ArrayList<>();
+			monsters.add(slime);
 		
+		List<Unit> units = new ArrayList<>();
+			units.addAll(party);
+			units.addAll(monsters);
+      
 		System.out.println("enter 'ready' to begin");
 		
 		
@@ -47,8 +56,9 @@ public class CharacterCreation{
 			System.out.println("enter 'ready' to begin");
 			scanner.next();
 		}
-		System.out.println("\033\143");
-		System.out.println("this is where the actual game would go");
+		System.out.println("");
+		CombatManager.startBattle(units);
+        
 		return player; 
 	}
 }
