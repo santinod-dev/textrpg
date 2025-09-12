@@ -5,7 +5,23 @@ public class Main {
 
     public static void main(String[] args) {
 		
+		 Player player = new Player("mia", "Warrior", 8, 4, 2, 4, 120, 40,false);
+		 List<Player> party = new ArrayList<>(); // add player
+			party.add(player);
 		
+		Enemy slime = new Enemy("Slime", 3, 2, 3, 0, 25, 0,false);
+		
+		List<Enemy> monsters = new ArrayList<>();
+			monsters.add(slime);
+		
+		List<Unit> units = new ArrayList<>();
+			units.addAll(party);
+			units.addAll(monsters);
+      
+		 CombatManager.startBattle(units);
+		 
+		 
+		/*
 		System.out.println("\033\143");
         System.out.println("Welcome \n1. Play\n2. Rest\n3. Quit");
 
@@ -27,7 +43,7 @@ public class Main {
         } else if (choice == 3) {
             System.exit(0);
         }
-		
+		*/
 		
         
     }
