@@ -5,7 +5,16 @@ public class CombatManager {
 		List<Enemy> monsters = new ArrayList<>();
 		List<Player> party = new ArrayList<>();
 		Scanner choice = new Scanner(System.in);
-	 
+		String menu = """ 
+								─── Choose Action ───
+								[1] ⚔️ Attack
+								[2] 🛡 Defend
+								[3] ⏭ Skip Turn
+								─────────────────────
+
+								""";
+								
+
 		for (Unit unit : units) {   // separate units into players and enemies
 			if (unit instanceof Player) {
 				party.add((Player) unit);
@@ -24,28 +33,35 @@ public class CombatManager {
 			for (Unit u : turnOrder) {
 				if (u.hp <= 0) continue; // skip dead
 
-				if (u instanceof Player) {
+				if (u instanceof Player) { // get player action
 					boolean valid = false;
 					while(!valid){
-					System.out.println("1 ) attack	2 ) defend	3) skip");
+					
+					System.out.println(menu);
+					if (choice.hasNextInt()){
 						int action = choice.nextInt();
-						switch (action){
-						case 1 : //attack
-							u.attack(monsters.get(0));
-							valid = true;
-							break;
-						case 2 : 
-							u.isDefending = true;
-							System.out.println(u.name + " braces for impact!");
-							valid = true;
-							break;
-						case 3:
-							valid = true;
-							break;
-						default:
-							System.out.println("please enter a valid input");
+							switch (action){
+							case 1 : //attack
+								u.attack(monsters.get(0));
+								valid = true;
+								break;
+							case 2 : 
+								u.isDefending = true;
+								System.out.println(u.name + " braces for impact!");
+								valid = true;
+								break;
+							case 3:
+								valid = true;
+								break;
+							default:
+								System.out.println("please enter a valid input");
+							}	
+						} else {
+						System.out.println("please enter a valid input");
+						choice.next();
 						}
 					}
+						
 
 				} else if (u instanceof Enemy) {
 					u.attack(party.get(0));

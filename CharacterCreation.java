@@ -4,61 +4,64 @@ public class CharacterCreation{
 	static Scanner scanner = new Scanner(System.in);
 	
 	public static Player create() {
-       
+		String menu = """
+					─── Character Creation ───
+					Choose your Class:
+					[1] ⚔️ Warrior
+					[2] 🪄 Mage
+					[3] 🗡️ Rogue
+					──────────────────────────
+					""";
+					
 		
         System.out.println("\033\143");
-        System.out.println("Select a Class \n1. Warrior\n2. Mage\n3. Rogue");
+        System.out.println(menu);
 
-        int job = scanner.nextInt();
-		System.out.println("\033\143");
-		System.out.println("What is your name?");
-		
-		scanner.nextLine();
-		String name = scanner.nextLine();
-		Player player =null;
-        if (job == 1) { // PLAYER NAME , JOB, ATTACK, DEFENSE, INTELLIGENCE, DEX, HP, MANA
-		
-		  player = new Player(name, "Warrior", 8, 7, 2, 4, 120, 40);// create new Player object
-			
-        } else if (job == 2) { // PLAYER NAME , JOB, ATTACK, DEFENSE, INTELLIGENCE, DEX, HP, MANA
-		
-          player = new Player(name, "Mage", 3, 2, 10, 5, 75, 120);// create new Player object
-			
-        } else if (job == 3) { // PLAYER NAME , JOB, ATTACK, DEFENSE, INTELLIGENCE, DEX, HP, MANA
-		
-          player = new Player(name, "Rogue", 6, 4, 4, 9, 90, 60);// create new Player object
-			
+        int job = -1;
+        while (true) {
+            if (scanner.hasNextInt()) {
+                job = scanner.nextInt();
+                scanner.nextLine(); // consume leftover newline
+                if (job >= 1 && job <= 3) break; // valid choice
+            } else {
+                scanner.nextLine(); // discard invalid input
+            }
+            System.out.println("Please enter a valid command (1-3):");
         }
 		
-		System.out.println("Welcome "+ player.name + " the " + player.job);  // Show Player stats
+		System.out.println("What is your name?");
+		String name = scanner.nextLine();
 		
-        System.out.println("You are a " + player.job + "!");
-        System.out.println("Attack: " + player.attack);
-        System.out.println("Intelligence: " + player.intelligence);
-        System.out.println("Dexterity: " + player.dexterity);
-		List<Player> party = new ArrayList<>(); // add player
-			party.add(player);
 		
-		Enemy slime = new Enemy("Slime", 3, 2, 3, 0, 25, 0);
+		Player player = null;
+        switch (job) { // PLAYER NAME , JOB, ATTACK, DEFENSE, INTELLIGENCE, DEX, HP, MANA, IS DEFENDING
+            case 1 -> player = new Player(name, "Warrior", 8, 7, 2, 4, 120, 40, false);
+            case 2 -> player = new Player(name, "Mage", 3, 2, 10, 5, 75, 120, false);
+            case 3 -> player = new Player(name, "Rogue", 6, 4, 4, 9, 90, 60, false);
+        }
+
 		
-		List<Enemy> monsters = new ArrayList<>();
-			monsters.add(slime);
-		
-		List<Unit> units = new ArrayList<>();
-			units.addAll(party);
-			units.addAll(monsters);
-      
+		String stats = String.format("""
+					─── Player Stats ───
+					Name:       %s
+					Class:      %s
+					HP:         ❤️ %d
+					Mana:       🔋 %d
+					Attack:     ⚔️ %d
+					Defense:    🛡 %d
+					Dexterity:  🌀 %d
+					────────────────────
+					""", player.name, player.job, player.hp, player.mana, player.attack, player.defense, player.dexterity);
+					
+
+		System.out.println(stats);  // Show Player stats
 		System.out.println("enter 'ready' to begin");
-		
-		
 		while (!scanner.hasNext("ready")) {
 			System.out.println("\033\143");
 			System.out.println("enter 'ready' to begin");
 			scanner.next();
 		}
-		System.out.println("");
-		CombatManager.startBattle(units);
-        
+		
 		return player; 
-	}
+		}
 }
