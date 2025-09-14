@@ -7,14 +7,14 @@ public class CombatManager {
 		Scanner choice = new Scanner(System.in);
 		String menu = """ 
 								─── Choose Action ───
-								[1] ⚔️ Attack
-								[2] 🛡 Defend
-								[3] ⏭ Skip Turn
+								[1]  Attack
+								[2]  Defend
+								[3]  Skip Turn
 								─────────────────────
 
 								""";
 								
-
+		
 		for (Unit unit : units) {   // separate units into players and enemies
 			if (unit instanceof Player) {
 				party.add((Player) unit);
@@ -42,12 +42,47 @@ public class CombatManager {
 						int action = choice.nextInt();
 							switch (action){
 							case 1 : //attack
-								u.attack(monsters.get(0));
+								boolean validTarget = false;
+								int target = -1;
+								while (!validTarget) {
+									StringBuilder choiceLine = new StringBuilder();
+									choiceLine.append("─────── Target ──────\n");
+
+									// print all enemies
+									for (int e = 0; e < monsters.size(); e++) {
+										Enemy enemy = monsters.get(e);
+										choiceLine.append(String.format("[%d] %s (HP: %d)\n", e, enemy.name, enemy.hp));
+									}
+									choiceLine.append("─────────────────────");
+									System.out.println(choiceLine.toString());
+
+									System.out.print("Choose a target: ");
+
+									if (choice.hasNextInt()) {
+										target = choice.nextInt();
+
+										if (target >= 0 && target < monsters.size()) {
+											validTarget = true;
+										} else {
+											System.out.println("Invalid target! Please choose again.");
+										}
+									} else {
+										System.out.println("Please enter a number!");
+										choice.next(); // consume invalid input
+									}
+								}
+								// once we break out, attack the chosen target
+								u.attack(monsters.get(target));
 								valid = true;
 								break;
 							case 2 : 
 								u.isDefending = true;
-								System.out.println(u.name + " braces for impact!");
+								String brace = String.format("""
+															────── Defense ──────
+															%s braces for impact!
+															─────────────────────
+															""", u.name);
+								System.out.println(brace);
 								valid = true;
 								break;
 							case 3:

@@ -30,13 +30,17 @@ public abstract class Unit {
 		if(target.isDefending){
 			if ( damage/2 < 0) damage = 0;
 			target.hp -= damage;
-			System.out.println(this.name + " attacks " + target.name + " for " + damage +" damage!");
 			target.isDefending = false;
 		}
 		else{
 			if ( damage < 0) damage = 0;
 			target.hp -= damage;
-			System.out.println(this.name + " attacks " + target.name + " for " + damage +" damage!");
 		}
+		String strike = String.format(	"""
+										─────── Attack ──────
+										%s strikes %s for %d
+										─────────────────────
+										""", this.name, target.name, damage);
+		System.out.println(strike);
 	}
 }

@@ -4,17 +4,32 @@ public class Main {
     static Scanner scanner = new Scanner(System.in); // make scanner accessible everywhere
 
     public static void main(String[] args) {
+			Player player = new Player("debug", "Warrior", 8, 7, 2, 4, 120, 40, false);
+			List<Player> party = new ArrayList<>(); // add player
+				party.add(player);			
+			Enemy slime = new Enemy("Slime", 3, 2, 3, 0, 25, 0,false);
+			Enemy skeleton = new Enemy("Skeleton", 3, 2, 3, 0, 10, 0,false);
+			Enemy zombie = new Enemy("Zombie", 3, 2, 3, 0, 35, 0,false);
+			List<Enemy> monsters = new ArrayList<>();
+				monsters.add(slime);
+				monsters.add(skeleton);
+				monsters.add(zombie);
+			List<Unit> units = new ArrayList<>();
+				units.addAll(party);
+				units.addAll(monsters);
+				CombatManager.startBattle(units);
+		/*
 		String menu = """
 		─── Main Menu ───
-		[1] 🎮 Start Game
-		[2] 🧑‍🎨 Create Character
-		[3] 📊 View Stats
-		[4] ❌ Exit
+		[1]  Start Game
+		[2]  Create Character
+		[3]  View Stats
+		[4]  Exit
 		────────────────
 		""";
 		System.out.println("\033\143");
         System.out.println(menu);
-
+		
         // This part checks for ints inside of scanner
         while (!scanner.hasNextInt()) { 
             System.out.println("Enter a valid input");
@@ -48,5 +63,6 @@ public class Main {
         case 3:
             System.exit(0);
         }
+		*/
     }
 }
