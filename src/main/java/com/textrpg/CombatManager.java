@@ -1,3 +1,4 @@
+
 import java.util.*;
 
 public class CombatManager {
@@ -105,7 +106,7 @@ public class CombatManager {
 				// check win/lose after each action
 				boolean allEnemiesDead = monsters.stream().allMatch(e -> e.hp <= 0);
 				boolean allPlayersDead = party.stream().allMatch(p -> p.hp <= 0);
-
+				choice.close();
 				if (allEnemiesDead) {
 					System.out.println("You win!");
 					return;
