@@ -1,0 +1,3 @@
+public enum TargetType{
+    ALL_ALLIES, SINGLE_ALLY, ALL_ENEMIES, SINGLE_ENEMY, SELF;
+}

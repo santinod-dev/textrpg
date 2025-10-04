@@ -124,9 +124,7 @@ public class CombatManager {
 				
 				boolean allEnemiesDead = monsters.stream().allMatch(e -> e.hp <= 0);
 				boolean allPlayersDead = party.stream().allMatch(p -> p.hp <= 0);
-				if(u.isDead()){
-					System.out.println(u.name + " has fallen!");
-				}
+			
 				if (allEnemiesDead) {
 					System.out.println("You win!");
 					return;
