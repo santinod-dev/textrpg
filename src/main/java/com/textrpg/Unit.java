@@ -36,9 +36,7 @@ public abstract class Unit {
 			if ( damage < 0) damage = 0;
 			target.hp -= damage;
 		}
-		if(target.isDead()){
-			System.out.println(target.name + " has fallen!");
-		}
+	
 
 		String strike = String.format(	"""
 										─────── Attack ──────
@@ -46,6 +44,9 @@ public abstract class Unit {
 										─────────────────────
 										""", this.name, target.name, damage);
 		System.out.println(strike);
+		if(target.isDead()){
+			System.out.println(target.name + " has fallen!");
+		}
 	}
 	public boolean  isDead(){
 		return this.hp <= 0;

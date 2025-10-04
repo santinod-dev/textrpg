@@ -47,10 +47,11 @@ public class CombatManager {
 				for (int i = 0; i < battlefield.size(); i++) {  //print units
 						Unit x = battlefield.get(i);
 						if (!x.isDead()) {  // only print living units
-							System.out.printf("[%d] %s (HP: %d)\n", i, x.name, x.hp);
+							System.out.printf("[%d] %s (HP: %d)   ", i, x.name, x.hp);
+							
 						}
 					}
-
+				System.out.println("");
 				if (choice.hasNextInt()){
 					int action = choice.nextInt();
 						switch (action){
@@ -123,6 +124,9 @@ public class CombatManager {
 				
 				boolean allEnemiesDead = monsters.stream().allMatch(e -> e.hp <= 0);
 				boolean allPlayersDead = party.stream().allMatch(p -> p.hp <= 0);
+				if(u.isDead()){
+					System.out.println(u.name + " has fallen!");
+				}
 				if (allEnemiesDead) {
 					System.out.println("You win!");
 					return;
