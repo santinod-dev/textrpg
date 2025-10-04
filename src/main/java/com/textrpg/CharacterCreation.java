@@ -30,17 +30,17 @@ public class CharacterCreation{
             System.out.println("Please enter a valid command (1-3):");
         }
 		
+	
 		System.out.println("What is your name?");
 		String name = scanner.nextLine();
-		
-		
 		Player player = null;
         switch (job) { // PLAYER NAME , JOB, ATTACK, DEFENSE, INTELLIGENCE, DEX, HP, MANA, IS DEFENDING
-            case 1 -> player = new Player(name, "Warrior", 8, 7, 2, 4, 120, 40, false);
+            case 1 -> player = new Player(name, "Warrior", 20, 7, 2, 4, 120, 40, false);
             case 2 -> player = new Player(name, "Mage", 3, 2, 10, 5, 75, 120, false);
             case 3 -> player = new Player(name, "Rogue", 6, 4, 4, 9, 90, 60, false);
         }
 
+			
 		
 		String stats = String.format("""
 					─── Player Stats ───

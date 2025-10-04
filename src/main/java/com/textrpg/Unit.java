@@ -15,7 +15,7 @@ public abstract class Unit {
 	int hp,
 	int mana,
 	boolean isDefending)
-	{ //I KNOW IT LOOKS UGLY SYBAU
+	{ //I KNOW IT LOOKS UGLY SYBAUss
 		this.name = name;
 		this.attack = attack;
 		this.defense = defense;
@@ -36,11 +36,18 @@ public abstract class Unit {
 			if ( damage < 0) damage = 0;
 			target.hp -= damage;
 		}
+		if(target.isDead()){
+			System.out.println(target.name + " has fallen!");
+		}
+
 		String strike = String.format(	"""
 										─────── Attack ──────
 										%s strikes %s for %d
 										─────────────────────
 										""", this.name, target.name, damage);
 		System.out.println(strike);
+	}
+	public boolean  isDead(){
+		return this.hp <= 0;
 	}
 }
